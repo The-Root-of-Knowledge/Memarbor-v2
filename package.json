@@ -4,7 +4,10 @@
   "description": "Arboreal Memory Builder",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node server/server.js",
+    "build": "NODE_ENV=production webpack",
+    "dev": "cross-env NODE_ENV=development concurrently \"webpack serve --open --hot \" \" nodemon server/server.js\""
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,26 @@
   "bugs": {
     "url": "https://github.com/PFAO/Memarbor/issues"
   },
-  "homepage": "https://github.com/PFAO/Memarbor#readme"
+  "homepage": "https://github.com/PFAO/Memarbor#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "postgres": "^1.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "concurrently": "^6.2.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.2.0",
+    "nodemon": "^2.0.12",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  }
 }
