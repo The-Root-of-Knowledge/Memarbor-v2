@@ -15,11 +15,28 @@ cardController.getSet = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      next(err);
+      return next(err);
     });
 };
 
-cardController.createSet = (req, res, next) => {};
+cardController.createSet = (req, res, next) => {
+    //user sends a name for the set
+    const setName = [req.body.name];
+    //take name from request body and use that to create new set
+    const queryString = `INSERT INTO sets (setname, private) VALUES ($1, '0');`
+    //Will need to pass setname and private = 0 to db
+    db.query(queryString, setName)
+    .then((data) => {
+    res.locals.newSet = data;
+    console.log(res.locals.newSet)
+    return next();
+    })
+    .catch((err) => {
+      console.log(err);
+      return next(err);
+    });
+    
+};
 
 cardController.createCard = (req, res, next) => {};
 
