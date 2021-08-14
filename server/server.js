@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
+//list of routers
 const cardRouters = require("./routes/cardRouter");
 const authRouters = require("./routes/authRouter");
 
