@@ -2,6 +2,11 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const PORT = 3000;
+const { Pool } = require('pg');
+const PGURI = 'postgres://qbcgrnmp:7eLZI0w8cwiAvGG9_qzoTTD0YSRp7_2D@chunee.db.elephantsql.com/qbcgrnmp';
+const pool = new Pool({
+  connectionString: PGURI,
+})
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -13,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 //catch all route handler, handles request to an unknown route
-app.use((req, res) => res.status(404).send("This page does not exists..."));
+app.use((req, res) => res.status(404).send("This page does not exist..."));
 
 //gloabal error handler
 app.use((err, req, res, next) => {
