@@ -10,6 +10,7 @@ class App extends Component {
     return (
       <div>
         <h2>Hello from the react app</h2>
+        <h3>Graham Test</h3>
       </div>
     );
   }
