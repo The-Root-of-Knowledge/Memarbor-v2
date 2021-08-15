@@ -18,9 +18,9 @@ router.post("/createSet", cardController.createSet, (req, res) =>
 );
 
 // //route to create new card
-// router.post("/createCard", cardController.createCard, (req, res) =>
-//   res.status(200).send(res.locals.newCard)
-// );
+router.post("/createCard", cardController.createCard, (req, res) =>
+  res.status(200).send(res.locals.newCard)
+);
 
 //getSet request needs to happen after client switches from card creation mode to practice mode
 
