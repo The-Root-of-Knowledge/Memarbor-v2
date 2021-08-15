@@ -13,10 +13,13 @@ class Create extends Component {
       currSet: null,
       availableSets: [],
     };
+
+    this.submitNewSet = this.submitNewSet.bind(this);
+    this.submitNewCard = this.submitNewCard.bind(this);
   }
 
   componentDidMount () {
-    
+    // Make a server request to get available set names and populate this.state.availableSets
   }
 
   enterNewSetMode () {
@@ -31,12 +34,25 @@ class Create extends Component {
     this.setState(this.state);
   }
 
+  submitNewSet (newSetName) {
+    // Make a request to the server with the new set's name
+
+    // If there are no errors, update the state with the new set as currSet and switch to newCardMode
+    this.state.currSet = newSetName;
+    this.enterNewCardMode();
+  }
+
+  submitNewCard (newCard) {
+    // Make a request to the server with the new card's info
+    console.log(newCard);
+  }
+
   render () {
     let inputArea;
     if (this.state.newCardMode) {
-      inputArea = <CreateCard />;
+      inputArea = <CreateCard key="newCard" submitNewCard={this.submitNewCard} />;
     } else if (this.state.newSetMode) {
-      inputArea = <CreateSet />;
+      inputArea = <CreateSet key="newSet" submitNewSet={this.submitNewSet} />;
     } else {
       inputArea = <div></div>;
     }

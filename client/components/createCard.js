@@ -1,4 +1,5 @@
 import React from 'react';
+import SetMenu from './setMenu';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -17,35 +18,51 @@ const useStyles = makeStyles({
 export default function CreateCard(props) {
   const classes = useStyles();
 
+  const gatherCardInfo = () => {
+    const newCard = {};
+    newCard.question = document.getElementById('newCardQuestion').value;
+    newCard.imageURL = document.getElementById('newCardImage').value;
+    newCard.answer = document.getElementById('newCardAnswer').value;
+
+    document.getElementById('newCardQuestion').value = '';
+    document.getElementById('newCardImage').value = '';
+    document.getElementById('newCardAnswer').value = '';
+
+    return newCard;
+  }
+
   return (
-    <Card className={classes.newCardTemplate}>
-      <CardContent>
-        <Typography>
-          Enter card question:
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <TextField id="newCardQuestion" variant="outlined" />
-      </CardActions>
-      <CardContent>
-        <Typography>
-          Enter image URL:
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <TextField id="newCardImage" variant="outlined" />
-      </CardActions>
-      <CardContent>
-        <Typography>
-          Enter card answer:
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <TextField id="newCardAnswer" variant="outlined" />
-      </CardActions>
-      <CardActions>
-        <Button size="medium" variant="contained" color="primary" onClick={() => console.log('Submitting a new card...')}>Sumbit new card</Button>
-      </CardActions>
-    </Card>
+    <div>
+      <SetMenu />
+      <Card className={classes.newCardTemplate}>
+        <CardContent>
+          <Typography>
+            Enter card question:
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <TextField id="newCardQuestion" variant="outlined" />
+        </CardActions>
+        <CardContent>
+          <Typography>
+            Enter image URL:
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <TextField id="newCardImage" variant="outlined" />
+        </CardActions>
+        <CardContent>
+          <Typography>
+            Enter card answer:
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <TextField id="newCardAnswer" variant="outlined" />
+        </CardActions>
+        <CardActions>
+          <Button size="medium" variant="contained" color="primary" onClick={() => props.submitNewCard(gatherCardInfo())}>Sumbit new card</Button>
+        </CardActions>
+      </Card>
+    </div>
   )
 }

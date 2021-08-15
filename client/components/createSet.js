@@ -26,7 +26,7 @@ export default function CreateSet(props) {
       </CardContent>
       <CardActions>
         <TextField id="newSetName" variant="outlined" />
-        <Button size="medium" variant="contained" color="primary" onClick={() => console.log('Submitting new set name...')}>Submit</Button>
+        <Button size="medium" variant="contained" color="primary" onClick={() => props.submitNewSet(document.getElementById('newSetName').value)}>Submit</Button>
       </CardActions>
     </Card>
   )
