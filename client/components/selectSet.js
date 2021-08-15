@@ -3,19 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import { MDCList } from '@material/list';
 
 //const setList = new MDCList();
-export default function SetList(props) {
+export default function Selectset(props) {
     // const classes = useStyles();
     const getListOfSets = props.getListOfSets;
-    const sets = this.props.SetList;
+    const { _id, setname, user_id } = props.set;
     
     return (
         <div>
-          <ul>
-            <li>
-                {setName}
-            </li>
-          </ul>
-          </div>
+          <div><strong>Set Name: </strong>{setname}</div>
+        </div>
     );
   }
   

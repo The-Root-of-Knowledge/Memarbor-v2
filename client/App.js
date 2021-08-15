@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Practice from './containers/practice';
-import List from './containers/list.js';
+import Selectsetlist from './containers/selectSetList.js';
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div>
         <h2>Hello from the react app</h2>
-        <List />
+        <Selectsetlist />
         <Practice />
         
       </div>
