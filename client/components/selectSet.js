@@ -6,10 +6,15 @@ import { MDCList } from '@material/list';
 export default function SetList(props) {
     // const classes = useStyles();
     const getListOfSets = props.getListOfSets;
-  
+    const sets = this.props.SetList;
+    
     return (
         <div>
-          Hi
+          <ul>
+            <li>
+                {setName}
+            </li>
+          </ul>
           </div>
     );
   }

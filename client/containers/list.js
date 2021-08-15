@@ -10,16 +10,25 @@ class List extends Component {
       }
       this.getListOfSets = this.getListOfSets.bind(this);
     }
-  getListOfSets() {
-    fetch('/getAllSets')
-    .then((data) => data.json())
-    .then((data) => this.setState({ setList: data }))
-  }
+    getListOfSets() {
+        fetch('/getAllSets')
+        .then((data) => data.json())
+        .then((data) => this.setState({ setList: data }))
+      }
+    componentDidMount() {
+       this.getListOfSets() 
+    }
+  
     render() {
 
         return (
             <div>
-               <SetList/> 
+               <SetList
+               {
+                   ...setList.data
+               }
+               getListOfSets={this.getListOfSets}
+               /> 
             </div>
         )
     }
