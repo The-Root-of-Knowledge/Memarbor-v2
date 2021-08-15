@@ -11,11 +11,12 @@ class Create extends Component {
       newSetMode: false,
       newCardMode: false,
       currSet: null,
-      availableSets: [],
+      availableSets: ['trees', 'birds', 'drag queens'],
     };
 
     this.submitNewSet = this.submitNewSet.bind(this);
     this.submitNewCard = this.submitNewCard.bind(this);
+    this.loadSet = this.loadSet.bind(this);
   }
 
   componentDidMount () {
@@ -34,6 +35,12 @@ class Create extends Component {
     this.setState(this.state);
   }
 
+  loadSet (event) {
+    // This should update the state's currSet to whichever set was selected
+    this.state.currSet = event.target.value;
+    this.setState(this.state);
+  }
+
   submitNewSet (newSetName) {
     // Make a request to the server with the new set's name
 
@@ -43,14 +50,14 @@ class Create extends Component {
   }
 
   submitNewCard (newCard) {
-    // Make a request to the server with the new card's info
-    console.log(newCard);
+    // Make a request to the server with the new card's info. Maybe let the user know if there was an issue.
+    console.log('New card: ', newCard, ' in set: ', this.state.currSet);
   }
 
   render () {
     let inputArea;
     if (this.state.newCardMode) {
-      inputArea = <CreateCard key="newCard" submitNewCard={this.submitNewCard} />;
+      inputArea = <CreateCard key="newCard" submitNewCard={this.submitNewCard} availableSets={this.state.availableSets} loadSet={this.loadSet} currSet={this.state.currSet} />;
     } else if (this.state.newSetMode) {
       inputArea = <CreateSet key="newSet" submitNewSet={this.submitNewSet} />;
     } else {

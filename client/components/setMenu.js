@@ -14,29 +14,33 @@ export default function SetMenu(props) {
   /**
    * Set menu will need to have an array of available sets passed down on props. When ready, replace temp array with array from props.
    */
-  const availableSets = ['trees', 'birds'];
+  const availableSets = props.availableSets;
   const setsList = availableSets.map((setName) => {
     return (
       <MenuItem value={setName}>{setName}</MenuItem>
     )
   })
+  const defaultChoice = 
+    (props.currSet) ? <MenuItem value={props.currSet}>{props.currSet}</MenuItem> : <MenuItem value=""><em>No set selected</em></MenuItem>;
 
-  const loadSet = (event) => {
-    // This should update the state's currSet to whichever set was selected
-  }
+  // const loadSet = (event) => {
+  //   // This should update the state's currSet to whichever set was selected
+  //   console.log('Detected a menu change')
+  //   console.log(event.target.value)
+  // }
 
   return (
     <FormControl>
-        <InputLabel id="setMenuLabel">Card set</InputLabel>
+        <InputLabel id="setMenuLabel"></InputLabel>
         <Select
           labelId="setMenuLabel"
+          displayEmpty
+          renderValue={() => defaultChoice}
           id="setMenu"
           // value={setName}
-          onChange={loadSet}
+          onChange={props.loadSet}
         >
-          <MenuItem value="">
-            <em>No set selected</em>
-          </MenuItem>
+          {defaultChoice}
           {setsList}
         </Select>
         <FormHelperText>Sets you can add to</FormHelperText>

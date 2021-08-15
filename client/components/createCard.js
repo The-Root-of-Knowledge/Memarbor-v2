@@ -33,7 +33,7 @@ export default function CreateCard(props) {
 
   return (
     <div>
-      <SetMenu />
+      <SetMenu availableSets={props.availableSets} loadSet={props.loadSet} currSet={props.currSet} />
       <Card className={classes.newCardTemplate}>
         <CardContent>
           <Typography>
