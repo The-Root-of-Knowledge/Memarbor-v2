@@ -7,7 +7,7 @@ cardController.getSet = (req, res, next) => {
   //_id comes from front end based on what set user clicked
   const setId = [req.body._id];
   //console.log(setId, "Should be 1");
-  const queryString = `SELECT s.*, c.* FROM sets s LEFT OUTER JOIN cards c ON c.set_id = $1;`;
+  const queryString = `SELECT c.* FROM cards c WHERE c.set_id = $1;`;
   db.query(queryString, setId)
     .then((data) => {
       res.locals.set = data.rows;
