@@ -44,6 +44,7 @@ export default function FlashCard(props) {
         image={props.currCard.imageurl}
         title="Guess this tree!"
         gutterbottom="true"
+        style={{alignSelf: 'center', justifySelf: 'center'}}
       />
       <CardActions>
         <TextField
