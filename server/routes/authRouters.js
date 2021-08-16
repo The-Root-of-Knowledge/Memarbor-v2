@@ -13,7 +13,7 @@ router.post(
 );
 
 //route to handle login
-router.get(
+router.post(
   "/login",
   authController.verifyUser,
   // authController.setSSIDCookie,

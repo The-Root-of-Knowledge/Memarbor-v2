@@ -21,12 +21,19 @@ export default function LogIn(props) {
     return [username, password];
   }
 
+  const loginMessage = () => {
+    if (props.loggedIn === true) return <p>Welcome back!</p>
+    else if (props.loggedIn === false) return <p>There was an issue logging in to that account.</p>
+    else return <div></div>
+  }
+
   return (
     <div className={classes.loginBox}>
       <TextField id="username" className={classes.spacer} variant="outlined" label="Username"></TextField>
       <TextField id="password" className={classes.spacer} variant="outlined" label="Password" type="password"></TextField>
       <br></br>
       <Button className={classes.spacer} size="large" variant="contained" color="primary" onClick={() => props.logInUser(gatherCredentials())}>Log In</Button>
+      {loginMessage()}
     </div>
   )
 }
