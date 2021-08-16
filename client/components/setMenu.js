@@ -15,9 +15,9 @@ export default function SetMenu(props) {
    * Set menu will need to have an array of available sets passed down on props. When ready, replace temp array with array from props.
    */
   const availableSets = props.availableSets;
-  const setsList = availableSets.map((setName) => {
+  const setsList = availableSets.map((setName, i) => {
     return (
-      <MenuItem value={setName}>{setName}</MenuItem>
+      <MenuItem key={`opt${i}`} value={setName}>{setName}</MenuItem>
     )
   })
   const defaultChoice = 

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ModeSelect from './components/modeSelect';
 import Create from './containers/create';
 import Practice from './containers/practice';
+import LogIn from './components/login';
+import SignUp from './components/signup';
 
 class App extends Component {
   constructor(props) {
@@ -21,6 +23,8 @@ class App extends Component {
   modeDisplay () {
     if (this.state.mode === 'practice') return <Practice />;
     else if (this.state.mode === 'create') return <Create />;
+    else if (this.state.mode === 'login') return <LogIn />;
+    else if (this.state.mode === 'signup') return <SignUp />;
     else return <div />;
   }
 
