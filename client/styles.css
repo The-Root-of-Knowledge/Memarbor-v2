@@ -5,3 +5,17 @@ h1 {
 h2 {
   color: purple;
 }
+div#mainpage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.practice {
+  flex: 2;
+}
+
+.selectsetlist {
+  flex: 1;
+  margin-left: auto;
+}

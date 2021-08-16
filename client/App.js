@@ -9,11 +9,10 @@ class App extends Component {
 
   render () {
     return (
-      <div>
-        <h2>Hello from the react app</h2>
-        <Selectsetlist />
-        <Practice />
+      <div id="mainpage">
         
+        <Practice id="practice"/>
+        <Selectsetlist id="selectsetlist"/>
       </div>
     );
   }
