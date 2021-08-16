@@ -5,11 +5,11 @@ const cardController = require("../controllers/cardController.js");
 const router = express.Router();
 
 //route to get a set of cards
-router.get(
+router.post(
   "/getSet",
   // () => console.log("In the router dot get"),
   cardController.getSet,
-  (req, res) => res.status(200).send(res.locals.set)
+  (req, res) => res.status(200).send(res.locals.set) //array of objects, each is a card
 );
 
 // route to create new set
@@ -24,7 +24,7 @@ router.post("/createCard", cardController.createCard, (req, res) =>
 
 //route to get all sets
 router.get("/getAllSets", cardController.getAllSets, (req, res) =>
-  res.status(200).send(res.locals.allSets)
+  res.status(200).send(res.locals.allSets) //array of set objects 
 );
 
 
