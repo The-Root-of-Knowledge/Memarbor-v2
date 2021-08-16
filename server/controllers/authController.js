@@ -9,8 +9,8 @@ const authController = {};
 authController.createUser = async (req, res, next) => {
   const encryptedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
-  const newUser = [req.body.id, req.body.username, encryptedPassword];
-  const queryString = `INSERT INTO users (id, username, password) VALUES ($1, $2, $3);`;
+  const newUser = [req.body.username, encryptedPassword];
+  const queryString = `INSERT INTO users (username, password) VALUES ($1, $2);`;
 
   db.query(queryString, newUser)
     .then(() => {
@@ -38,7 +38,6 @@ authController.verifyUser = (req, res, next) => {
       );
     })
     .then(() => {
-      console.log(res.locals.verificationStatus);
       if (res.locals.verificationStatus === true) return next();
       else res.status(401).send("Password is not a match");
     })
