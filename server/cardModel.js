@@ -6,6 +6,13 @@ const pool = new Pool({
   connectionString: PGURI,
 });
 
+//brandon seperate db for testing
+// const PGURI =
+//   "postgres://xbredhlw:LCNZxbK_ladIpYOfYcxMSVOLe5Dpqo4z@chunee.db.elephantsql.com/xbredhlw";
+// const pool = new Pool({
+//   connectionString: PGURI,
+// });
+
 const db = {
   query: (text, params, callback) => {
     //console.log('executed query', text);
