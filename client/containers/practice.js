@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FlashCard from '../components/card';
 import AnswerCard from '../components/answerCard';
+import Selectsetlist from './selectSetList.js';
 
 class Practice extends Component {
   constructor(props) {
@@ -9,21 +10,20 @@ class Practice extends Component {
     this.state = {
       currSet: [],
       currCard: {
-        question: 'What tree is this?',
-        imageURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Binary_search_tree.svg/1024px-Binary_search_tree.svg.png',
-        answer: 'binary search tree',
+        question: 'Please select a set of flashcards to start.',
+        imageurl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Larix_decidua_Aletschwald.jpg/1920px-Larix_decidua_Aletschwald.jpg',
       },
       correct: null,
     };
 
     this.checkAnswer = this.checkAnswer.bind(this);
     this.getNewCard = this.getNewCard.bind(this);
+    this.getOneSet = this.getOneSet.bind(this);
   }
 
   checkAnswer = () => {
     const guess = document.getElementById('guess').value;
     document.getElementById('guess').value = '';
-    console.log('Checking answer... ', guess);
     if (guess.toLowerCase() === this.state.currCard.answer.toLowerCase()) {
       this.state.correct = true;
       return this.setState(this.state);
@@ -34,10 +34,26 @@ class Practice extends Component {
   }
 
   getNewCard = () => {
-    console.log('Getting a new flash card by updating the state...');
     // Update this.state.currCard to a new card and this.state.correct to null
     this.state.correct = null;
+    const randomIndex = Math.floor(Math.random()*this.state.currSet.length);
+    this.state.currCard = this.state.currSet[randomIndex];
     this.setState(this.state);
+  }
+
+  getOneSet = (id) => {
+    
+    fetch(`/cards/getSet/`, {
+      headers: {'Content-Type' : 'application/json'},
+      method: 'POST',
+      body: JSON.stringify({ _id : id })
+    })
+    .then((data) => data.json())
+    .then((jvsdata) => {
+      
+      const randomIndex = Math.floor(Math.random()*jvsdata.length);
+      this.setState({currSet: jvsdata, currCard: jvsdata[randomIndex]});
+    })
   }
 
   renderAnswer = () => {
@@ -59,13 +75,18 @@ class Practice extends Component {
     const dispAnswer = this.renderAnswer();
 
     return (
-      <div>
-        <FlashCard 
-          key={`card`}
-          currCard={this.state.currCard}
-          checkAnswer={this.checkAnswer}
-        />
-        {dispAnswer}
+      <div id="mainpage">
+        <div>
+          <FlashCard 
+            key={`card`}
+            currCard={this.state.currCard}
+            checkAnswer={this.checkAnswer}
+          />
+          {dispAnswer}
+        </div>
+        <div>
+          <Selectsetlist getOneSet={this.getOneSet} />          
+        </div>
       </div>
     );
   }

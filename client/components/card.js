@@ -31,19 +31,19 @@ export default function FlashCard(props) {
   return (
     <Card className={classes.flashcard}>
       <CardContent>
-        <Typography className={classes.title} color="textPrimary" gutterBottom>
+        <Typography className={classes.title} color="textPrimary" gutterbottom="true">
           {props.currCard.question}
         </Typography>
       </CardContent>
       <CardMedia
         className={classes.treePic}
-        image={props.currCard.imageURL} 
+        image={props.currCard.imageurl} 
         title="Guess this tree!"
-        gutterBottom
+        gutterbottom="true"
       />
       <CardActions>
-        <TextField id="guess" variant="outlined" />
-        <Button size="medium" variant="contained" color="primary" onClick={() => props.checkAnswer()}>Check my answer</Button>
+        <TextField id="guess" variant="outlined" style={{display: (props.currCard.answer) ? 'block' : 'none'}} />
+        <Button size="medium" variant="contained" color="primary" onClick={() => props.checkAnswer()} style={{display: (props.currCard.answer) ? 'block' : 'none'}}>Check my answer</Button>
       </CardActions>
     </Card>
   );

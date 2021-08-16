@@ -6,6 +6,6 @@ const useStyles = makeStyles({
 
 });
 
-export default function LogIn(props) {
-  return <h3>Login page goes here</h3>
+export default function SignUp(props) {
+  return <h3>Sign up page goes here</h3>
 }
