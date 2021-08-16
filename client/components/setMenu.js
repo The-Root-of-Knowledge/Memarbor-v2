@@ -23,12 +23,6 @@ export default function SetMenu(props) {
   const defaultChoice = 
     (props.currSet) ? <MenuItem value={props.currSet}>{props.currSet}</MenuItem> : <MenuItem value=""><em>No set selected</em></MenuItem>;
 
-  // const loadSet = (event) => {
-  //   // This should update the state's currSet to whichever set was selected
-  //   console.log('Detected a menu change')
-  //   console.log(event.target.value)
-  // }
-
   return (
     <FormControl>
         <InputLabel id="setMenuLabel"></InputLabel>
@@ -37,7 +31,6 @@ export default function SetMenu(props) {
           displayEmpty
           renderValue={() => defaultChoice}
           id="setMenu"
-          // value={setName}
           onChange={props.loadSet}
         >
           {defaultChoice}
