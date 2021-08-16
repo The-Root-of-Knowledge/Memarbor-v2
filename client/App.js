@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Create from './containers/create';
 import Practice from './containers/practice';
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
       <div>
         <h2>Hello from the react app</h2>
         <Practice />
+        <Create />
       </div>
     );
   }
