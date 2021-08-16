@@ -55,6 +55,13 @@ class Create extends Component {
   }
 
   render () {
+    const containerStyle = {
+      margin: '40px',
+    };
+    const buttonStyle = {
+      margin: '10px',
+    };
+
     let inputArea;
     if (this.state.newCardMode) {
       inputArea = <CreateCard key="newCard" submitNewCard={this.submitNewCard} availableSets={this.state.availableSets} loadSet={this.loadSet} currSet={this.state.currSet} />;
@@ -65,9 +72,9 @@ class Create extends Component {
     }
     
     return (
-      <div>
-        <Button size="large" variant="contained" color="primary" onClick={() => this.enterNewCardMode()}>Add card to existing set</Button>
-        <Button size="large" variant="contained" color="secondary" onClick={() => this.enterNewSetMode()}>Create new set of cards</Button>
+      <div style={containerStyle}>
+        <Button style={buttonStyle} size="large" variant="contained" color="primary" onClick={() => this.enterNewCardMode()}>Add card to existing set</Button>
+        <Button style={buttonStyle} size="large" variant="contained" color="secondary" onClick={() => this.enterNewSetMode()}>Create new set of cards</Button>
         <hr></hr>
         {inputArea}
       </div>
