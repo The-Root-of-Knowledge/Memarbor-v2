@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Selectset from '../components/selectSet.js';
-//import Practice from './practice.js';
+
 
 
 class Selectsetlist extends Component {
@@ -10,14 +10,14 @@ class Selectsetlist extends Component {
         setList: [],
       }
       this.getListOfSets = this.getListOfSets.bind(this);
-      // this.getOneSet = this.getOneSet.bind(this);
+      
     }
 
     getListOfSets() {
       fetch('/cards/getAllSets')
       .then((data) => data.json())
       .then((jvsdata) => {
-        //console.log(jvsdata, "jvsdata");
+        
         this.setState({ setList: jvsdata })
       })
     }
@@ -26,22 +26,10 @@ class Selectsetlist extends Component {
       this.getListOfSets(); 
     }
 
-    // getOneSet(id) {
-    //   console.log(id, "id in getOneSet")
-    //   fetch(`/cards/getSet/${id}`)
-    //   .then((data) => data.json())
-    //   .then((jvsdata) => {
-    //     console.log(jvsdata, "jvsdata in getOneSet")
-    //     Practice.setState({currSet: jvsdata, currCard: jvsdata[0]})
-    //   })
-    // }
     
-    // componentDidUpdate() {
-    //   this.getOneSet()
-    // }
   
     render() {
-      //console.log(this.state.setList, "this.state.setList")
+      
         return (
             <div>
                {
@@ -55,12 +43,7 @@ class Selectsetlist extends Component {
                   />
               )
                })
-               /* <selectSet
-               {
-                   ...setList.data
                }
-               getListOfSets={this.getListOfSets}
-               />  */}
             </div>
         )
     }

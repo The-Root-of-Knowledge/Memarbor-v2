@@ -5,7 +5,7 @@ const cardController = require("../controllers/cardController.js");
 const router = express.Router();
 
 //route to get a set of cards
-router.get(
+router.post(
   "/getSet",
   // () => console.log("In the router dot get"),
   cardController.getSet,

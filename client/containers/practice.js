@@ -10,9 +10,8 @@ class Practice extends Component {
     this.state = {
       currSet: [],
       currCard: {
-        question: 'What tree is this?',
-        imageURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Binary_search_tree.svg/1024px-Binary_search_tree.svg.png',
-        answer: 'binary search tree',
+        question: 'Please select a set of flashcards to start.',
+        imageurl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Larix_decidua_Aletschwald.jpg/1920px-Larix_decidua_Aletschwald.jpg',
       },
       correct: null,
     };
@@ -25,7 +24,6 @@ class Practice extends Component {
   checkAnswer = () => {
     const guess = document.getElementById('guess').value;
     document.getElementById('guess').value = '';
-    console.log('Checking answer... ', guess);
     if (guess.toLowerCase() === this.state.currCard.answer.toLowerCase()) {
       this.state.correct = true;
       return this.setState(this.state);
@@ -36,19 +34,25 @@ class Practice extends Component {
   }
 
   getNewCard = () => {
-    console.log('Getting a new flash card by updating the state...');
     // Update this.state.currCard to a new card and this.state.correct to null
     this.state.correct = null;
+    const randomIndex = Math.floor(Math.random()*this.state.currSet.length);
+    this.state.currCard = this.state.currSet[randomIndex];
     this.setState(this.state);
   }
 
   getOneSet = (id) => {
-    console.log(id, "id in getOneSet")
-    fetch(`/cards/getSet/${id}`)
+    
+    fetch(`/cards/getSet/`, {
+      headers: {'Content-Type' : 'application/json'},
+      method: 'POST',
+      body: JSON.stringify({ _id : id })
+    })
     .then((data) => data.json())
     .then((jvsdata) => {
-      console.log(jvsdata, "jvsdata in getOneSet")
-      this.setState({currSet: jvsdata, currCard: jvsdata[0]})
+      
+      const randomIndex = Math.floor(Math.random()*jvsdata.length);
+      this.setState({currSet: jvsdata, currCard: jvsdata[randomIndex]});
     })
   }
 
