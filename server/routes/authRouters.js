@@ -13,11 +13,11 @@ router.post(
 );
 
 //route to handle login
-// router.get(
-//   "/login",
-//   authController.verifyUser,
-//   authController.setSSIDCookie,
-//   (req, res) => res.status(200).send("Login successful")
-// );
+router.get(
+  "/login",
+  authController.verifyUser,
+  // authController.setSSIDCookie,
+  (req, res) => res.status(200).send("Login successful")
+);
 
 module.exports = router;
