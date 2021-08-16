@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 //list of routers
-// const cardRouters = require("./routes/cardRouters.js");
+const cardRouters = require("./routes/cardRouters.js");
 const authRouters = require("./routes/authRouters.js");
 
 const PORT = 3000;
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 //console.log("Before use slash cards");
 
 //route all card requests to the card router
-// app.use("/cards", cardRouters);
+app.use("/cards", cardRouters);
 
 //route all authentication requests to the authentication router
 app.use("/auth", authRouters);
