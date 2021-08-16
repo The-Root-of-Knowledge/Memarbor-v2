@@ -50,9 +50,12 @@ class Practice extends Component {
     })
     .then((data) => data.json())
     .then((jvsdata) => {
-      
-      const randomIndex = Math.floor(Math.random()*jvsdata.length);
-      this.setState({currSet: jvsdata, currCard: jvsdata[randomIndex]});
+      if (jvsdata.length > 0) {
+        const randomIndex = Math.floor(Math.random()*jvsdata.length);
+        this.setState({currSet: jvsdata, currCard: jvsdata[randomIndex]});
+      } else {
+        this.setState({currCard: {question: 'Sorry, that set does not have cards.'}});
+      }
     })
   }
 
