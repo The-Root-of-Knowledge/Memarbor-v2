@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FlashCard from '../components/card';
 import AnswerCard from '../components/answerCard';
+import Selectsetlist from './selectSetList.js';
 
 class Practice extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Practice extends Component {
 
     this.checkAnswer = this.checkAnswer.bind(this);
     this.getNewCard = this.getNewCard.bind(this);
+    this.getOneSet = this.getOneSet.bind(this);
   }
 
   checkAnswer = () => {
@@ -40,6 +42,16 @@ class Practice extends Component {
     this.setState(this.state);
   }
 
+  getOneSet = (id) => {
+    console.log(id, "id in getOneSet")
+    fetch(`/cards/getSet/${id}`)
+    .then((data) => data.json())
+    .then((jvsdata) => {
+      console.log(jvsdata, "jvsdata in getOneSet")
+      this.setState({currSet: jvsdata, currCard: jvsdata[0]})
+    })
+  }
+
   renderAnswer = () => {
     if (this.state.correct === null) {
       return (<div></div>);
@@ -59,13 +71,18 @@ class Practice extends Component {
     const dispAnswer = this.renderAnswer();
 
     return (
-      <div>
-        <FlashCard 
-          key={`card`}
-          currCard={this.state.currCard}
-          checkAnswer={this.checkAnswer}
-        />
-        {dispAnswer}
+      <div id="mainpage">
+        <div>
+          <FlashCard 
+            key={`card`}
+            currCard={this.state.currCard}
+            checkAnswer={this.checkAnswer}
+          />
+          {dispAnswer}
+        </div>
+        <div>
+          <Selectsetlist getOneSet={this.getOneSet} />          
+        </div>
       </div>
     );
   }
