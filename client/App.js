@@ -77,7 +77,7 @@ class App extends Component {
   render () {
     return (
       <div>
-        <h2>Hello from the react app</h2>
+        <h1>MemArbor</h1>
         <ModeSelect changeMode={this.changeMode} />
         <hr></hr>
         {this.modeDisplay()}

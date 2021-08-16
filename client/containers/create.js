@@ -11,15 +11,24 @@ class Create extends Component {
       newSetMode: false,
       newCardMode: false,
       currSet: null,
-      availableSets: ['trees', 'birds', 'drag queens'],
+      currSetId: null,
+      availableSets: [],
     };
 
     this.submitNewSet = this.submitNewSet.bind(this);
     this.submitNewCard = this.submitNewCard.bind(this);
     this.loadSet = this.loadSet.bind(this);
   }
-
+  getListOfSets() {
+    fetch('/cards/getAllSets')
+    .then((data) => data.json())
+    .then((jvsdata) => {
+      //console.log(jvsdata, "jvsdata in getListOfSets")
+      this.setState({ availableSets: jvsdata })
+    })
+  }
   componentDidMount () {
+    this.getListOfSets()
     // Make a server request to get available set names and populate this.state.availableSets
   }
 
@@ -38,20 +47,48 @@ class Create extends Component {
   loadSet (event) {
     // This should update the state's currSet to whichever set was selected
     this.state.currSet = event.target.value;
+    for (let i = 0; i < this.state.availableSets.length; i++) {
+      if (this.state.availableSets[i].setname === event.target.value) {
+        this.state.currSetId = this.state.availableSets[i]._id;
+        break;
+      }
+    }
     this.setState(this.state);
+    console.log(this.state);
   }
 
   submitNewSet (newSetName) {
     // Make a request to the server with the new set's name
-
+    let returnedSetId = null;
+    fetch('/cards/createSet', {
+        headers: {'Content-Type' : 'application/json'},
+        method: 'POST',
+        body: JSON.stringify({ name : newSetName })
+    })
+    .then((dbdata) => dbdata.json())
+    .then((jvsdata) => {
+        //console.log(jvsdata, 'jvsdata in newSetName')
+        returnedSetId = jvsdata
+        this.state.currSetId = returnedSetId._id;
+    })
     // If there are no errors, update the state with the new set as currSet and switch to newCardMode
     this.state.currSet = newSetName;
+    
     this.enterNewCardMode();
   }
 
   submitNewCard (newCard) {
     // Make a request to the server with the new card's info. Maybe let the user know if there was an issue.
-    console.log('New card: ', newCard, ' in set: ', this.state.currSet);
+    //console.log(newCard, "Making new card");
+    //console.log(this.state.currSetId, "the current set ID")
+    fetch('/cards/createCard', {
+        headers: {'Content-Type' : 'application/json'},
+        method: 'POST',
+        body: JSON.stringify({ question : newCard.question, imageurl: newCard.imageURL, answer: newCard.answer, set_id: this.state.currSetId })
+    })
+    
+    
+    //console.log('New card: ', newCard, ' in set: ', this.state.currSet);
   }
 
   render () {

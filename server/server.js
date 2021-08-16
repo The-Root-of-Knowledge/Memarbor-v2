@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, "../client/index.html"));
 });
 
-//console.log("Before use slash cards");
+
 
 //route all card requests to the card router
 app.use("/cards", cardRouters);

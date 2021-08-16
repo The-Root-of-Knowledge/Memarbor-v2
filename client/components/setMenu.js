@@ -17,7 +17,7 @@ export default function SetMenu(props) {
   const availableSets = props.availableSets;
   const setsList = availableSets.map((setName, i) => {
     return (
-      <MenuItem key={`opt${i}`} value={setName}>{setName}</MenuItem>
+      <MenuItem key={`opt${i}`} value={setName.setname}>{setName.setname}</MenuItem>
     )
   })
   const defaultChoice = 
@@ -31,7 +31,7 @@ export default function SetMenu(props) {
           displayEmpty
           renderValue={() => defaultChoice}
           id="setMenu"
-          onChange={props.loadSet}
+          onChange={(event) => props.loadSet(event)}
         >
           {defaultChoice}
           {setsList}
