@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node server/server.js",
     "build": "NODE_ENV=production webpack",
-    "dev": "cross-env NODE_ENV=development concurrently \"webpack serve --open --hot \" \" nodemon server/server.js\""
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env NODE_ENV=development nodemon server/server.js\""
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,11 @@
   },
   "homepage": "https://github.com/PFAO/Memarbor#readme",
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material/list": "^12.0.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
+    "pg": "^8.7.1",
     "postgres": "^1.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
