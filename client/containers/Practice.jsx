@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FlashCard from '../components/card';
-import AnswerCard from '../components/answerCard';
-import Selectsetlist from './selectSetList.js';
+import FlashCard from '../components/FlashCard.jsx';
+import AnswerCard from '../components/AnswerCard.jsx';
+import SelectSetList from './SelectSetList.jsx';
 
 class Practice extends Component {
   constructor(props) {
@@ -88,7 +88,7 @@ class Practice extends Component {
           {dispAnswer}
         </div>
         <div>
-          <Selectsetlist getOneSet={this.getOneSet} />          
+          <SelectSetList getOneSet={this.getOneSet} />          
         </div>
       </div>
     );

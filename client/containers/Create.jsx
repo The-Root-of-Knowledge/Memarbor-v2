@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import CreateSet from '../components/createSet';
-import CreateCard from '../components/createCard';
+import CreateSet from '../components/CreateSet.jsx';
+import CreateCard from '../components/CreateCard.jsx';
 
 class Create extends Component {
   constructor(props) {
