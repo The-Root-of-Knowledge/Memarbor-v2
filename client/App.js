@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import ModeSelect from './components/modeSelect';
-import Create from './containers/create';
-import Practice from './containers/practice';
-import LogIn from './components/login';
-import SignUp from './components/signup';
+import ModeSelect from './components/ModeSelect.jsx';
+import Create from './containers/Create.jsx';
+import Practice from './containers/Practice.jsx';
+import LogIn from './components/LogIn.jsx';
+import SignUp from './components/SignUp.jsx';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Navigation from './components/Navigation.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -77,11 +79,29 @@ class App extends Component {
   render () {
     return (
       <div>
-        <h1>MemArbor</h1>
         <ModeSelect changeMode={this.changeMode} />
         <hr></hr>
         {this.modeDisplay()}
       </div>
+    //   <Router>
+    //   <Navigation />
+    //     <Switch>
+    //       <Route path='/' render={props => (
+    //         <div>
+    //           <ModeSelect changeMode={this.changeMode} />
+    //           <hr></hr>
+    //         </div>
+    //       )}/>
+    //       <Route path='/practice' component={Practice}/>
+    //       <Route path='/create' component={Create}/>
+    //       <Route path='/login' render={props => (
+    //         <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
+    //       )}/>
+    //       <Route path='/signup' render={props => (
+    //         <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
+    //       )}/>
+    //     </Switch>
+    // </Router>
     );
   }
 }

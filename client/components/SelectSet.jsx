@@ -4,7 +4,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 
-export default function Selectset(props) {
+export default function SelectSet(props) {
     
     const getOneSet = props.getOneSet;
     const { _id, setname, user_id } = props.set;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Selectset from '../components/selectSet.js';
+import SelectSet from '../components/SelectSet.jsx';
 
 
 
-class Selectsetlist extends Component {
+class SelectSetList extends Component {
     constructor(props){
       super(props);
       this.state = {
@@ -35,7 +35,7 @@ class Selectsetlist extends Component {
                {
                this.state.setList.map((setEl) => {
                 return (
-                  <Selectset 
+                  <SelectSet 
                   key={setEl._id}  
                   set={setEl}
                   getListOfSets={this.getListOfSets}
@@ -49,4 +49,4 @@ class Selectsetlist extends Component {
     }
 }
 
-export default Selectsetlist;
+export default SelectSetList;

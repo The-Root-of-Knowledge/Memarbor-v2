@@ -1,5 +1,5 @@
 import React from 'react';
-import SetMenu from './setMenu';
+import SetMenu from './SetMenu.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
