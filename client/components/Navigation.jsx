@@ -2,7 +2,7 @@ import * as React from 'react';
 //import * as Router from 'react-router-dom';
 import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements.js';
 
-function Navigation() {
+function Navigation(props) {
   return(
     <>
       <Nav>
@@ -14,9 +14,11 @@ function Navigation() {
             <NavLink to='/practice'>
               Practice Mode
             </NavLink>
-            <NavLink to='/create'>
-              Create Mode
-            </NavLink>
+            {props.loggedIn === true && 
+              <NavLink to='/create'>
+                Create Mode
+              </NavLink>
+            }
             <NavLink to='/login'>
               Log In
             </NavLink>

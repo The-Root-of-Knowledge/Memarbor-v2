@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FlashCard from '../components/FlashCard.jsx';
 import AnswerCard from '../components/AnswerCard.jsx';
 import SelectSetList from './SelectSetList.jsx';
+import CheckBox from '../components/CheckBox.jsx';
 
 class Practice extends Component {
   constructor(props) {
@@ -14,11 +15,33 @@ class Practice extends Component {
         imageurl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Larix_decidua_Aletschwald.jpg/1920px-Larix_decidua_Aletschwald.jpg',
       },
       correct: null,
+      showPrivateSets: false,
+      showPublicSets: true
     };
 
     this.checkAnswer = this.checkAnswer.bind(this);
     this.getNewCard = this.getNewCard.bind(this);
     this.getOneSet = this.getOneSet.bind(this);
+    this.toggleShowPrivateSets = this.toggleShowPrivateSets.bind(this);
+    this.toggleShowPublicSets = this.toggleShowPublicSets.bind(this);
+  }
+
+  toggleShowPrivateSets () {
+    const showPrivateSets = this.state.showPrivateSets === true ? false : true;
+    const newState = {
+      ...this.state,
+      showPrivateSets
+    };
+    this.setState(newState);
+  }
+
+  toggleShowPublicSets () {
+    const showPublicSets = this.state.showPublicSets === true ? false : true;
+    const newState = {
+      ...this.state,
+      showPublicSets
+    };
+    this.setState(newState);
   }
 
   checkAnswer = () => {
@@ -88,7 +111,28 @@ class Practice extends Component {
           {dispAnswer}
         </div>
         <div>
-          <SelectSetList getOneSet={this.getOneSet} />          
+          { this.props.loggedIn && 
+            <div>
+              <CheckBox
+                checkPrompt= "Show private sets" 
+                onClickFunction={this.toggleShowPrivateSets}
+              />
+              <CheckBox
+                checkPrompt= "Show public sets" 
+                onClickFunction={this.toggleShowPublicSets}
+              />
+            </div>
+          }
+          { !this.props.loggedIn && 
+            <div>
+              Showing Public Sets
+            </div>
+          }
+          <SelectSetList
+            getOneSet={this.getOneSet} 
+            showPrivateSets={this.state.showPrivateSets}
+            showPublicSets={this.state.showPublicSets}
+          />          
         </div>
       </div>
     );

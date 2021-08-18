@@ -65,13 +65,15 @@ class App extends Component {
   render () {
     return (
       <Router>
-          <Navigation />
+          <Navigation loggedIn={this.state.loggedIn} />
           <ThemeProvider theme={theme}>
             <Switch>
               <Route exact path='/' render={props => (
                 <HomePage />
               )}/>
-              <Route path='/practice' component={Practice}/>
+              <Route path='/practice' render={props => (
+                  <Practice loggedIn={this.state.loggedIn} />
+              )}/>
               <Route path='/create' component={Create}/>
               <Route path='/login' render={props => (
                   <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
