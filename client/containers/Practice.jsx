@@ -34,6 +34,8 @@ class Practice extends Component {
   }
 
   updateSetListDisplay() {
+    console.log('showPrivateSets', this.state.showPrivateSets)
+    console.log('showPublicSets', this.state.showPublicSets)
     const setArray = [];
     if (this.state.showPrivateSets) {
       for (const set of this.state.persistingSetList) {
@@ -57,7 +59,7 @@ class Practice extends Component {
         for (const set of jvsdata) {
           if (set.private === true) setArray.push(set);
         }
-      }
+      } 
       if (this.state.showPublicSets) {
         for (const set of jvsdata) {
           if (set.private === false) setArray.push(set);
@@ -162,11 +164,19 @@ class Practice extends Component {
             <div>
               <CheckBox
                 checkPrompt= "Show private sets" 
-                onClickFunction={this.toggleShowPrivateSets}
+                checked={this.state.showPrivateSets}
+                onClickFunction={() => {
+                  this.toggleShowPrivateSets()
+                  // this.updateSetListDisplay()
+                }}
               />
               <CheckBox
                 checkPrompt= "Show public sets" 
-                onClickFunction={this.toggleShowPublicSets}
+                checked={this.state.showPublicSets}
+                onClickFunction={() => {
+                  this.toggleShowPublicSets()
+                  // this.updateSetListDisplay()
+                }}
               />
             </div>
           }
@@ -179,8 +189,8 @@ class Practice extends Component {
             getOneSet={this.getOneSet}
             // getListOfSets={this.getListOfSets}
             setList={this.state.setList}
-            showPrivateSets={this.state.showPrivateSets}
-            showPublicSets={this.state.showPublicSets}
+            // showPrivateSets={this.state.showPrivateSets}
+            // showPublicSets={this.state.showPublicSets}
           />          
         </div>
       </div>

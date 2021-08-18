@@ -34,6 +34,7 @@ export default function CreateSet(props) {
       <CardActions className={classes.checkBoxPrompt}>
         <CheckBox  
           checkPrompt = "Make set private? (Only you can use it to study)" 
+          checked={props.privateCheckboxChecked}
           onClickFunction={props.toggleIsSetPrivate}
         />
       </CardActions>

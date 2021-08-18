@@ -13,6 +13,7 @@ export default function CheckBox(props) {
       <FormGroup aria-label="position" column = "true">
           <FormControlLabel
             value="start"
+            checked={props.checked}
             control={<Checkbox color="primary" />}
             label={props.checkPrompt}
             labelPlacement="start"

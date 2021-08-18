@@ -13,6 +13,7 @@ class Create extends Component {
       currSet: null,
       currSetId: null,
       isSetPrivate: '0',
+      privateCheckboxChecked: false,
       availableSets: [],
     };
 
@@ -33,6 +34,11 @@ class Create extends Component {
     // Make a server request to get available set names and populate this.state.availableSets
     this.getListOfSets()
   }
+
+  // componentDidUpdate() {
+  //   console.log('isSetPrivate', this.state.isSetPrivate);
+  //   console.log('privateCheckBoxChecked', this.state.privateCheckboxChecked);
+  // }
 
   enterNewSetMode () {
     this.state.newSetMode = true;
@@ -61,9 +67,11 @@ class Create extends Component {
 
   toggleIsSetPrivate () {
     const isSetPrivate = this.state.isSetPrivate === '1' ? '0' : '1';
+    const privateCheckboxChecked = this.state.privateCheckboxChecked === true ? false : true;
     const newState = {
       ...this.state,
-      isSetPrivate
+      isSetPrivate,
+      privateCheckboxChecked
     };
     this.setState(newState);
   }
@@ -117,7 +125,12 @@ class Create extends Component {
     if (this.state.newCardMode) {
       inputArea = <CreateCard key="newCard" submitNewCard={this.submitNewCard} availableSets={this.state.availableSets} loadSet={this.loadSet} currSet={this.state.currSet} />;
     } else if (this.state.newSetMode) {
-      inputArea = <CreateSet key="newSet" toggleIsSetPrivate={this.toggleIsSetPrivate} submitNewSet={this.submitNewSet} />;
+      inputArea = <CreateSet 
+          key="newSet" 
+          privateCheckboxChecked={this.privateCheckboxChecked} 
+          toggleIsSetPrivate={this.toggleIsSetPrivate} 
+          submitNewSet={this.submitNewSet} 
+        />;
     } else {
       inputArea = <div></div>;
     }
