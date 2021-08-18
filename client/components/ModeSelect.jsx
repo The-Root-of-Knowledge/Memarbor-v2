@@ -1,3 +1,5 @@
+// This file is not used but is left here for reference to old code
+
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ModeSelect from './components/ModeSelect.jsx';
+import HomePage from './components/HomePage.jsx';
 import Create from './containers/Create.jsx';
 import Practice from './containers/Practice.jsx';
 import LogIn from './components/LogIn.jsx';
@@ -11,19 +11,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: null,
       loggedIn: null,
       username: '',
     };
 
-    this.changeMode = this.changeMode.bind(this);
     this.logInUser = this.logInUser.bind(this);
     this.createNewUser = this.createNewUser.bind(this);
-  }
-
-  changeMode (mode) {
-    this.state.mode = mode;
-    this.setState(this.state);
   }
 
   createNewUser (credentials) {
@@ -68,40 +61,24 @@ class App extends Component {
     .catch(err => console.log(err));
   }
 
-  modeDisplay () {
-    if (this.state.mode === 'practice') return <Practice />;
-    else if (this.state.mode === 'create') return <Create />;
-    else if (this.state.mode === 'login') return <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />;
-    else if (this.state.mode === 'signup') return <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />;
-    else return <div />;
-  }
-
   render () {
     return (
-      <div>
-        <ModeSelect changeMode={this.changeMode} />
-        <hr></hr>
-        {this.modeDisplay()}
-      </div>
-    //   <Router>
-    //   <Navigation />
-    //     <Switch>
-    //       <Route path='/' render={props => (
-    //         <div>
-    //           <ModeSelect changeMode={this.changeMode} />
-    //           <hr></hr>
-    //         </div>
-    //       )}/>
-    //       <Route path='/practice' component={Practice}/>
-    //       <Route path='/create' component={Create}/>
-    //       <Route path='/login' render={props => (
-    //         <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
-    //       )}/>
-    //       <Route path='/signup' render={props => (
-    //         <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
-    //       )}/>
-    //     </Switch>
-    // </Router>
+      <Router>
+        <Navigation />
+        <Switch>
+          <Route exact path='/' render={props => (
+            <HomePage />
+          )}/>
+          <Route path='/practice' component={Practice}/>
+          <Route path='/create' component={Create}/>
+          <Route path='/login' render={props => (
+            <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
+          )}/>
+          <Route path='/signup' render={props => (
+            <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
+          )}/>
+        </Switch>
+      </Router>
     );
   }
 }
