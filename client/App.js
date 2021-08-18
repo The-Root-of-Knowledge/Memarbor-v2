@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import HomePage from './components/HomePage.jsx';
+import HomePage from './containers/HomePage.jsx';
 import Create from './containers/Create.jsx';
 import Practice from './containers/Practice.jsx';
 import LogIn from './components/LogIn.jsx';
 import SignUp from './components/SignUp.jsx';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation.jsx';
+import { ThemeProvider } from "@material-ui/core/styles";
 
 class App extends Component {
   constructor(props) {
@@ -64,20 +65,20 @@ class App extends Component {
   render () {
     return (
       <Router>
-        <Navigation />
-        <Switch>
-          <Route exact path='/' render={props => (
-            <HomePage />
-          )}/>
-          <Route path='/practice' component={Practice}/>
-          <Route path='/create' component={Create}/>
-          <Route path='/login' render={props => (
-            <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
-          )}/>
-          <Route path='/signup' render={props => (
-            <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
-          )}/>
-        </Switch>
+          <Navigation />
+          <Switch>
+            <Route exact path='/' render={props => (
+              <HomePage />
+            )}/>
+            <Route path='/practice' component={Practice}/>
+            <Route path='/create' component={Create}/>
+            <Route path='/login' render={props => (
+                <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
+            )}/>
+            <Route path='/signup' render={props => (
+              <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
+            )}/>
+          </Switch>
       </Router>
     );
   }

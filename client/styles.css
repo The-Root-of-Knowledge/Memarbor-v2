@@ -1,10 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+html {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
 h1 {
-  color: green;
+  color: rgb(116, 182, 116);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: calc(2em + 2vw);
 }
 
 h2 {
   color: purple;
 }
+
+#homePageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#homePageContainer h1 {
+  margin: 0;
+}
+
+#homePageLogo {
+  max-width: 50vw;
+  margin: 1em 0;
+}
+
 div#mainpage {
   display: flex;
   flex-direction: row;
