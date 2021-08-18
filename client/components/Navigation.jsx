@@ -4,11 +4,12 @@ import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements
 
 function Navigation() {
   return(
+    <>
       <Nav>
         <Bars/>
           <NavMenu>
             <NavLink to='/'>
-                Home
+              Home
             </NavLink>
             <NavLink to='/practice'>
               Practice Mode
@@ -17,13 +18,14 @@ function Navigation() {
               Create Mode
             </NavLink>
             <NavLink to='/login'>
-                Log In
+              Log In
             </NavLink>
             <NavLink to='/signup'>
-                Sign Up
+              Sign Up
             </NavLink>
           </NavMenu>
       </Nav>
+    </>
   )
 }
 export default Navigation;
