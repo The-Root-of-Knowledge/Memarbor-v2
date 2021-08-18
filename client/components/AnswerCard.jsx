@@ -1,11 +1,10 @@
 import React from "react";
-import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import theme from "../material-ui/theme";
 
 const useStyles = makeStyles({
   answerCard: {
@@ -30,16 +29,14 @@ export default function AnswerCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <ThemeProvider theme={theme}>
-          <Button
-            size="medium"
-            variant="contained"
-            color="secondary"
-            onClick={() => props.getNewCard()}
-          >
-            Next Card
-          </Button>
-        </ThemeProvider>
+        <Button
+          size="medium"
+          variant="contained"
+          color="secondary"
+          onClick={() => props.getNewCard()}
+        >
+          Next Card
+        </Button>
       </CardActions>
     </Card>
   );

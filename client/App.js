@@ -7,7 +7,7 @@ import SignUp from './components/SignUp.jsx';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation.jsx';
 import { ThemeProvider } from "@material-ui/core/styles";
-
+import theme from './material-ui/theme.js';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -66,19 +66,21 @@ class App extends Component {
     return (
       <Router>
           <Navigation />
-          <Switch>
-            <Route exact path='/' render={props => (
-              <HomePage />
-            )}/>
-            <Route path='/practice' component={Practice}/>
-            <Route path='/create' component={Create}/>
-            <Route path='/login' render={props => (
-                <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
-            )}/>
-            <Route path='/signup' render={props => (
-              <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
-            )}/>
-          </Switch>
+          <ThemeProvider theme={theme}>
+            <Switch>
+              <Route exact path='/' render={props => (
+                <HomePage />
+              )}/>
+              <Route path='/practice' component={Practice}/>
+              <Route path='/create' component={Create}/>
+              <Route path='/login' render={props => (
+                  <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
+              )}/>
+              <Route path='/signup' render={props => (
+                <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
+              )}/>
+            </Switch>
+          </ThemeProvider>
       </Router>
     );
   }
