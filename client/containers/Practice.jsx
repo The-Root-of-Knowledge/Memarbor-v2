@@ -7,7 +7,6 @@ import CheckBox from '../components/CheckBox.jsx';
 class Practice extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       currSet: [],
       currCard: {
@@ -16,7 +15,9 @@ class Practice extends Component {
       },
       correct: null,
       showPrivateSets: false,
-      showPublicSets: true
+      showPublicSets: true,
+      persistingSetList: [],
+      setList: []
     };
 
     this.checkAnswer = this.checkAnswer.bind(this);
@@ -24,6 +25,52 @@ class Practice extends Component {
     this.getOneSet = this.getOneSet.bind(this);
     this.toggleShowPrivateSets = this.toggleShowPrivateSets.bind(this);
     this.toggleShowPublicSets = this.toggleShowPublicSets.bind(this);
+    this.getListOfSets = this.getListOfSets.bind(this);
+    this.updateSetListDisplay = this.updateSetListDisplay.bind(this);
+  }
+
+  componentDidMount() {
+    this.getListOfSets(); 
+  }
+
+  updateSetListDisplay() {
+    const setArray = [];
+    if (this.state.showPrivateSets) {
+      for (const set of this.state.persistingSetList) {
+        if (set.private === true) setArray.push(set);
+      }
+    }
+    if (this.state.showPublicSets) {
+      for (const set of this.state.persistingSetList) {
+        if (set.private === false) setArray.push(set);
+      }
+    }
+    this.setState({ setList: setArray });
+  }
+
+  getListOfSets() {
+    fetch('/cards/getAllSets')
+    .then((data) => data.json())
+    .then((jvsdata) => {
+      const setArray = [];
+      if (this.state.showPrivateSets) {
+        for (const set of jvsdata) {
+          if (set.private === true) setArray.push(set);
+        }
+      }
+      if (this.state.showPublicSets) {
+        for (const set of jvsdata) {
+          if (set.private === false) setArray.push(set);
+        }
+      }
+      console.log('setList', setArray)
+      console.log('persistingSetList', jvsdata)
+      this.setState({
+        ...this.state,
+        setList: setArray, 
+        persistingSetList: jvsdata 
+      })
+    })
   }
 
   toggleShowPrivateSets () {
@@ -129,7 +176,9 @@ class Practice extends Component {
             </div>
           }
           <SelectSetList
-            getOneSet={this.getOneSet} 
+            getOneSet={this.getOneSet}
+            // getListOfSets={this.getListOfSets}
+            setList={this.state.setList}
             showPrivateSets={this.state.showPrivateSets}
             showPublicSets={this.state.showPublicSets}
           />          
