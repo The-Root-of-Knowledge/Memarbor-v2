@@ -33,6 +33,7 @@ export default function LogIn(props) {
       <TextField id="password" className={classes.spacer} variant="outlined" label="Password" type="password"></TextField>
       <br></br>
       <Button className={classes.spacer} size="large" variant="contained" color="primary" onClick={() => props.logInUser(gatherCredentials())}>Log In</Button>
+      <a href="/auth/google">Sign In with Google</a>
       {loginMessage()}
     </div>
   )
