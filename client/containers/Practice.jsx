@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import FlashCard from '../components/FlashCard.jsx';
 import AnswerCard from '../components/AnswerCard.jsx';
 import SelectSetList from './SelectSetList.jsx';
+import CheckBox from '../components/CheckBox.jsx';
 
 class Practice extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       currSet: [],
       currCard: {
@@ -14,11 +14,72 @@ class Practice extends Component {
         imageurl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Larix_decidua_Aletschwald.jpg/1920px-Larix_decidua_Aletschwald.jpg',
       },
       correct: null,
+      showPrivateSets: false,
+      showPublicSets: true,
+      persistingSetList: [],
+      setList: []
     };
 
     this.checkAnswer = this.checkAnswer.bind(this);
     this.getNewCard = this.getNewCard.bind(this);
     this.getOneSet = this.getOneSet.bind(this);
+    this.updateSetListDisplay = this.updateSetListDisplay.bind(this);
+  }
+
+  componentDidMount() {
+    this.getListOfSets(); 
+  }
+
+  updateSetListDisplay(id) {
+    let showPrivateSets = this.state.showPrivateSets;
+    let showPublicSets = this.state.showPublicSets;
+    const setList = [];
+    if (id === 'private') {
+      showPrivateSets = !showPrivateSets;
+    } else {
+      showPublicSets = !showPublicSets;
+    }
+    if (showPrivateSets) {
+      for (let set of this.state.persistingSetList) {
+        if (set.private) setList.push(set);
+      }
+    }
+    if (showPublicSets) {
+      for (let set of this.state.persistingSetList) {
+        if (!set.private) setList.push(set);
+      }
+    }
+    this.setState({
+      ...this.state,
+      showPrivateSets,
+      showPublicSets,
+      setList
+    })
+  }
+
+  getListOfSets() {
+    fetch('/cards/getAllSets')
+    .then((data) => data.json())
+    .then((jvsdata) => {
+      const setArray = [];
+      if (this.state.showPrivateSets) {
+        for (const set of jvsdata) {
+          if (set.private === true) setArray.push(set);
+        }
+      } 
+      if (this.state.showPublicSets) {
+        for (const set of jvsdata) {
+          if (set.private === false) setArray.push(set);
+        }
+      }
+      console.log('setList', setArray)
+      console.log('persistingSetList', jvsdata)
+      this.setState({
+        ...this.state,
+        setList: setArray, 
+        persistingSetList: jvsdata 
+      })
+    })
   }
 
   checkAnswer = () => {
@@ -88,7 +149,36 @@ class Practice extends Component {
           {dispAnswer}
         </div>
         <div>
-          <SelectSetList getOneSet={this.getOneSet} />          
+          { this.props.loggedIn && 
+            <div>
+              <CheckBox
+                checkPrompt= "Show private sets" 
+                checked={this.state.showPrivateSets}
+                onClickFunction={() => {
+                  this.updateSetListDisplay('private');
+                }}
+              />
+              <CheckBox
+                checkPrompt= "Show public sets" 
+                checked={this.state.showPublicSets}
+                onClickFunction={() => {
+                  this.updateSetListDisplay('public');
+                }}
+              />
+            </div>
+          }
+          { !this.props.loggedIn && 
+            <div>
+              Showing Public Sets
+            </div>
+          }
+          <SelectSetList
+            getOneSet={this.getOneSet}
+            // getListOfSets={this.getListOfSets}
+            setList={this.state.setList}
+            // showPrivateSets={this.state.showPrivateSets}
+            // showPublicSets={this.state.showPublicSets}
+          />          
         </div>
       </div>
     );

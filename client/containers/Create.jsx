@@ -12,12 +12,15 @@ class Create extends Component {
       newCardMode: false,
       currSet: null,
       currSetId: null,
+      isSetPrivate: '0',
+      privateCheckboxChecked: false,
       availableSets: [],
     };
 
     this.submitNewSet = this.submitNewSet.bind(this);
     this.submitNewCard = this.submitNewCard.bind(this);
     this.loadSet = this.loadSet.bind(this);
+    this.toggleIsSetPrivate = this.toggleIsSetPrivate.bind(this);
   }
   getListOfSets() {
     fetch('/cards/getAllSets')
@@ -28,9 +31,14 @@ class Create extends Component {
     })
   }
   componentDidMount () {
-    this.getListOfSets()
     // Make a server request to get available set names and populate this.state.availableSets
+    this.getListOfSets()
   }
+
+  // componentDidUpdate() {
+  //   console.log('isSetPrivate', this.state.isSetPrivate);
+  //   console.log('privateCheckBoxChecked', this.state.privateCheckboxChecked);
+  // }
 
   enterNewSetMode () {
     this.state.newSetMode = true;
@@ -57,13 +65,27 @@ class Create extends Component {
     console.log(this.state);
   }
 
+  toggleIsSetPrivate () {
+    const isSetPrivate = this.state.isSetPrivate === '1' ? '0' : '1';
+    const privateCheckboxChecked = this.state.privateCheckboxChecked === true ? false : true;
+    const newState = {
+      ...this.state,
+      isSetPrivate,
+      privateCheckboxChecked
+    };
+    this.setState(newState);
+  }
+
   submitNewSet (newSetName) {
     // Make a request to the server with the new set's name
     let returnedSetId = null;
     fetch('/cards/createSet', {
-        headers: {'Content-Type' : 'application/json'},
+        headers: {'Content-Type': 'application/json'},
         method: 'POST',
-        body: JSON.stringify({ name : newSetName })
+        body: JSON.stringify({
+          name: newSetName, 
+          private: this.state.isSetPrivate
+        })
     })
     .then((dbdata) => dbdata.json())
     .then((jvsdata) => {
@@ -84,7 +106,7 @@ class Create extends Component {
     fetch('/cards/createCard', {
         headers: {'Content-Type' : 'application/json'},
         method: 'POST',
-        body: JSON.stringify({ question : newCard.question, imageurl: newCard.imageURL, answer: newCard.answer, set_id: this.state.currSetId })
+        body: JSON.stringify({ question: newCard.question, imageurl: newCard.imageURL, answer: newCard.answer, set_id: this.state.currSetId })
     })
     
     
@@ -103,7 +125,12 @@ class Create extends Component {
     if (this.state.newCardMode) {
       inputArea = <CreateCard key="newCard" submitNewCard={this.submitNewCard} availableSets={this.state.availableSets} loadSet={this.loadSet} currSet={this.state.currSet} />;
     } else if (this.state.newSetMode) {
-      inputArea = <CreateSet key="newSet" submitNewSet={this.submitNewSet} />;
+      inputArea = <CreateSet 
+          key="newSet" 
+          privateCheckboxChecked={this.privateCheckboxChecked} 
+          toggleIsSetPrivate={this.toggleIsSetPrivate} 
+          submitNewSet={this.submitNewSet} 
+        />;
     } else {
       inputArea = <div></div>;
     }

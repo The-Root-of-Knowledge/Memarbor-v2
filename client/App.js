@@ -7,13 +7,14 @@ import SignUp from './components/SignUp.jsx';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation.jsx';
 import { ThemeProvider } from "@material-ui/core/styles";
-
+import theme from './material-ui/theme.js';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loggedIn: null,
       username: '',
+      userId: null,
     };
 
     this.logInUser = this.logInUser.bind(this);
@@ -27,16 +28,23 @@ class App extends Component {
       method: "POST",
       body: JSON.stringify({username: credentials[0], password: credentials[1]}),
     })
+    // .then(res => res.json())
     .then(res => {
       // Update this.state.loggedIn and this.state.username based on response status
+      let loggedIn = this.state.loggedIn;
+      let username = this.state.username;
+      let userId = this.state.userId;
       if (res.status === 200) {
-        this.state.username = credentials[0];
-        this.state.loggedIn = true;
-      } else {
-        this.state.username = '';
-        this.state.loggedIn = false;
+        username = credentials[0];
+        loggedIn = true;
+        // userId = res.body.userId;
       }
-      this.setState(this.state);
+      this.setState({
+        ...this.state,
+        username,
+        loggedIn,
+        userId
+      });
     })
     .catch(err => console.log(err));
   }
@@ -48,16 +56,25 @@ class App extends Component {
       method: "POST",
       body: JSON.stringify({username: credentials[0], password: credentials[1]}),
     })
+    // .then(res => res.json())
     .then(res => {
+
       // Update this.state.loggedIn and this.state.username based on response status
+      let loggedIn = this.state.loggedIn;
+      let username = this.state.username;
+      let userId = this.state.userId;
       if (res.status === 200) {
-        this.state.username = credentials[0];
-        this.state.loggedIn = true;
-      } else {
-        this.state.username = '';
-        this.state.loggedIn = false;
+        username = credentials[0];
+        loggedIn = true;
+        // userId = res.body.userId;
+        console.log(res);
       }
-      this.setState(this.state);
+      this.setState({
+        ...this.state,
+        username,
+        loggedIn,
+        userId
+      });
     })
     .catch(err => console.log(err));
   }
@@ -65,20 +82,24 @@ class App extends Component {
   render () {
     return (
       <Router>
-          <Navigation />
-          <Switch>
-            <Route exact path='/' render={props => (
-              <HomePage />
-            )}/>
-            <Route path='/practice' component={Practice}/>
-            <Route path='/create' component={Create}/>
-            <Route path='/login' render={props => (
-                <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
-            )}/>
-            <Route path='/signup' render={props => (
-              <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
-            )}/>
-          </Switch>
+          <Navigation loggedIn={this.state.loggedIn} />
+          <ThemeProvider theme={theme}>
+            <Switch>
+              <Route exact path='/' render={props => (
+                <HomePage />
+              )}/>
+              <Route path='/practice' render={props => (
+                  <Practice loggedIn={this.state.loggedIn} />
+              )}/>
+              <Route path='/create' component={Create}/>
+              <Route path='/login' render={props => (
+                  <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
+              )}/>
+              <Route path='/signup' render={props => (
+                <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
+              )}/>
+            </Switch>
+          </ThemeProvider>
       </Router>
     );
   }

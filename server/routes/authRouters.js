@@ -13,7 +13,7 @@ router.post(
   "/signup",
   authController.createUser,
   // authController.setSSIDCookie,
-  (req, res) => res.status(200).send("Signup successful")
+  (req, res) => res.status(200).json({userId: res.locals.userId})
 );
 
 //route to handle login
@@ -23,7 +23,7 @@ router.post(
   //passport.authenticate('local', {failureFlash: 'SIKE. no login for u'}),
   authController.verifyUser,
   // authController.setSSIDCookie,
-  (req, res) => res.status(200).send("Login successful")
+  (req, res) => res.status(200).json({userId: res.locals.userId})
 );
 
 //oauth test
