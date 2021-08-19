@@ -46,7 +46,10 @@ class Practice extends Component {
     }
     if (showPublicSets) {
       for (let set of this.state.persistingSetList) {
-        if (!set.private) setList.push(set);
+        if (!set.private && set.user_id === this.props.userId) setList.push(set);
+      }
+      for (let set of this.state.persistingSetList) {
+        if (!set.private && set.user_id !== this.props.userId) setList.push(set);
       }
     }
     this.setState({
@@ -71,7 +74,10 @@ class Practice extends Component {
       } 
       if (this.state.showPublicSets) {
         for (const set of jvsdata) {
-          if (set.private === false) setArray.push(set);
+          if (set.private === false && set.user_id === this.props.userId) setArray.push(set);
+        }
+        for (const set of jvsdata) {
+          if (set.private === false && set.user_id !== this.props.userId) setArray.push(set);
         }
       }
       console.log('setList', setArray)
