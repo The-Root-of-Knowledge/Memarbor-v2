@@ -76,10 +76,30 @@ cardController.createCard = (req, res, next) => {
 };
 
 cardController.getAllSets = (req, res, next) => {
-  const queryString = `SELECT * FROM sets;`;
-  db.query(queryString)
+  const userId = [];
+  let queryString = "SELECT * FROM sets WHERE private = '0'";
+  if (req.query.userId) {
+    userId.push(req.query.userId);
+    queryString += ' OR user_id = $1';
+  }
+  queryString += ';';
+  db.query(queryString, userId)
     .then((data) => {
       res.locals.allSets = data.rows;
+      return next();
+    })
+    .catch((err) => {
+      console.log("error in get all sets middleware", err);
+      return next(err);
+    });
+};
+
+cardController.getAllPrivateSets = (req, res, next) => {
+  const userId = [req.query.userId];
+  const queryString = "SELECT * FROM sets WHERE user_id = $1;";
+  db.query(queryString, userId)
+    .then((data) => {
+      res.locals.allPrivateSets = data.rows;
       return next();
     })
     .catch((err) => {

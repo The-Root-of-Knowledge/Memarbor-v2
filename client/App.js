@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation.jsx';
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from './material-ui/theme.js';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -87,7 +88,7 @@ class App extends Component {
                 <HomePage />
               )}/>
               <Route path='/practice' render={props => (
-                <Practice loggedIn={this.state.loggedIn} />
+                <Practice loggedIn={this.state.loggedIn} userId={this.state.userId} />
               )}/>
               <Route path='/create' render={props => (
                 <Create userId={this.state.userId} />
