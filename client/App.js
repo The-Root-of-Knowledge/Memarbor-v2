@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       loggedIn: null,
       username: '',
+      userId: null,
     };
 
     this.logInUser = this.logInUser.bind(this);
@@ -27,16 +28,23 @@ class App extends Component {
       method: "POST",
       body: JSON.stringify({username: credentials[0], password: credentials[1]}),
     })
+    // .then(res => res.json())
     .then(res => {
       // Update this.state.loggedIn and this.state.username based on response status
+      let loggedIn = this.state.loggedIn;
+      let username = this.state.username;
+      let userId = this.state.userId;
       if (res.status === 200) {
-        this.state.username = credentials[0];
-        this.state.loggedIn = true;
-      } else {
-        this.state.username = '';
-        this.state.loggedIn = false;
+        username = credentials[0];
+        loggedIn = true;
+        // userId = res.body.userId;
       }
-      this.setState(this.state);
+      this.setState({
+        ...this.state,
+        username,
+        loggedIn,
+        userId
+      });
     })
     .catch(err => console.log(err));
   }
@@ -48,16 +56,25 @@ class App extends Component {
       method: "POST",
       body: JSON.stringify({username: credentials[0], password: credentials[1]}),
     })
+    // .then(res => res.json())
     .then(res => {
+
       // Update this.state.loggedIn and this.state.username based on response status
+      let loggedIn = this.state.loggedIn;
+      let username = this.state.username;
+      let userId = this.state.userId;
       if (res.status === 200) {
-        this.state.username = credentials[0];
-        this.state.loggedIn = true;
-      } else {
-        this.state.username = '';
-        this.state.loggedIn = false;
+        username = credentials[0];
+        loggedIn = true;
+        // userId = res.body.userId;
+        console.log(res);
       }
-      this.setState(this.state);
+      this.setState({
+        ...this.state,
+        username,
+        loggedIn,
+        userId
+      });
     })
     .catch(err => console.log(err));
   }
