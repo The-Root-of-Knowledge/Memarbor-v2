@@ -58,7 +58,9 @@ class Practice extends Component {
   }
 
   getListOfSets() {
-    fetch('/cards/getAllSets')
+    let fetchString = '/cards/getAllSets';
+    if (this.props.userId) fetchString += `?userId=${this.props.userId}`;
+    fetch(fetchString)
     .then((data) => data.json())
     .then((jvsdata) => {
       const setArray = [];

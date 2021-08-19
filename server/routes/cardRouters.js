@@ -32,6 +32,13 @@ router.get(
   (req, res) => res.status(200).send(res.locals.allSets) //array of set objects
 );
 
+//route to get all private sets
+router.get(
+  "/getAllPrivateSets",
+  cardController.getAllPrivateSets,
+  (req, res) => res.status(200).send(res.locals.allPrivateSets) //array of set objects
+);
+
 //getSet request needs to happen after client switches from card creation mode to practice mode
 
 module.exports = router;
