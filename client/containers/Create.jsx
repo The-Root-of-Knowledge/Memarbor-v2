@@ -22,8 +22,8 @@ class Create extends Component {
     this.loadSet = this.loadSet.bind(this);
     this.toggleIsSetPrivate = this.toggleIsSetPrivate.bind(this);
   }
-  getListOfSets() {
-    fetch('/cards/getAllSets')
+  getListOfPrivateSets() {
+    fetch(`/cards/getAllPrivateSets?userId=${this.props.userId}`)
     .then((data) => data.json())
     .then((jvsdata) => {
       //console.log(jvsdata, "jvsdata in getListOfSets")
@@ -32,7 +32,7 @@ class Create extends Component {
   }
   componentDidMount () {
     // Make a server request to get available set names and populate this.state.availableSets
-    this.getListOfSets()
+    this.getListOfPrivateSets()
   }
 
   // componentDidUpdate() {
