@@ -23,9 +23,6 @@ class Practice extends Component {
     this.checkAnswer = this.checkAnswer.bind(this);
     this.getNewCard = this.getNewCard.bind(this);
     this.getOneSet = this.getOneSet.bind(this);
-    this.toggleShowPrivateSets = this.toggleShowPrivateSets.bind(this);
-    this.toggleShowPublicSets = this.toggleShowPublicSets.bind(this);
-    this.getListOfSets = this.getListOfSets.bind(this);
     this.updateSetListDisplay = this.updateSetListDisplay.bind(this);
   }
 
@@ -33,21 +30,31 @@ class Practice extends Component {
     this.getListOfSets(); 
   }
 
-  updateSetListDisplay() {
-    console.log('showPrivateSets', this.state.showPrivateSets)
-    console.log('showPublicSets', this.state.showPublicSets)
-    const setArray = [];
-    if (this.state.showPrivateSets) {
-      for (const set of this.state.persistingSetList) {
-        if (set.private === true) setArray.push(set);
+  updateSetListDisplay(id) {
+    let showPrivateSets = this.state.showPrivateSets;
+    let showPublicSets = this.state.showPublicSets;
+    const setList = [];
+    if (id === 'private') {
+      showPrivateSets = !showPrivateSets;
+    } else {
+      showPublicSets = !showPublicSets;
+    }
+    if (showPrivateSets) {
+      for (let set of this.state.persistingSetList) {
+        if (set.private) setList.push(set);
       }
     }
-    if (this.state.showPublicSets) {
-      for (const set of this.state.persistingSetList) {
-        if (set.private === false) setArray.push(set);
+    if (showPublicSets) {
+      for (let set of this.state.persistingSetList) {
+        if (!set.private) setList.push(set);
       }
     }
-    this.setState({ setList: setArray });
+    this.setState({
+      ...this.state,
+      showPrivateSets,
+      showPublicSets,
+      setList
+    })
   }
 
   getListOfSets() {
@@ -73,24 +80,6 @@ class Practice extends Component {
         persistingSetList: jvsdata 
       })
     })
-  }
-
-  toggleShowPrivateSets () {
-    const showPrivateSets = this.state.showPrivateSets === true ? false : true;
-    const newState = {
-      ...this.state,
-      showPrivateSets
-    };
-    this.setState(newState);
-  }
-
-  toggleShowPublicSets () {
-    const showPublicSets = this.state.showPublicSets === true ? false : true;
-    const newState = {
-      ...this.state,
-      showPublicSets
-    };
-    this.setState(newState);
   }
 
   checkAnswer = () => {
@@ -166,16 +155,14 @@ class Practice extends Component {
                 checkPrompt= "Show private sets" 
                 checked={this.state.showPrivateSets}
                 onClickFunction={() => {
-                  this.toggleShowPrivateSets()
-                  // this.updateSetListDisplay()
+                  this.updateSetListDisplay('private');
                 }}
               />
               <CheckBox
                 checkPrompt= "Show public sets" 
                 checked={this.state.showPublicSets}
                 onClickFunction={() => {
-                  this.toggleShowPublicSets()
-                  // this.updateSetListDisplay()
+                  this.updateSetListDisplay('public');
                 }}
               />
             </div>
