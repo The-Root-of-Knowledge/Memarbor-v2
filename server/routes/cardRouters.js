@@ -12,6 +12,14 @@ router.post(
   (req, res) => res.status(200).send(res.locals.set) //array of objects, each is a card
 );
 
+// route to delete a set of cards
+router.post(
+  "/deleteSet",
+  // () => console.log("In the router dot get"),
+  cardController.deleteSet,
+  (req, res) => res.status(200).send(res.locals.set) //array of objects, each is a card
+);
+
 // route to create new set
 router.post(
   "/createSet",
