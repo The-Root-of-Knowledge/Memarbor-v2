@@ -28,16 +28,16 @@ class App extends Component {
       method: "POST",
       body: JSON.stringify({username: credentials[0], password: credentials[1]}),
     })
-    // .then(res => res.json())
+    .then(res => res.json())
     .then(res => {
       // Update this.state.loggedIn and this.state.username based on response status
       let loggedIn = this.state.loggedIn;
       let username = this.state.username;
       let userId = this.state.userId;
-      if (res.status === 200) {
+      if (res.userId) {
         username = credentials[0];
         loggedIn = true;
-        // userId = res.body.userId;
+        userId = res.userId;
       }
       this.setState({
         ...this.state,
@@ -56,18 +56,16 @@ class App extends Component {
       method: "POST",
       body: JSON.stringify({username: credentials[0], password: credentials[1]}),
     })
-    // .then(res => res.json())
+    .then(res => res.json())
     .then(res => {
-
       // Update this.state.loggedIn and this.state.username based on response status
       let loggedIn = this.state.loggedIn;
       let username = this.state.username;
       let userId = this.state.userId;
-      if (res.status === 200) {
+      if (res.userId) {
         username = credentials[0];
         loggedIn = true;
-        // userId = res.body.userId;
-        console.log(res);
+        userId = res.userId;
       }
       this.setState({
         ...this.state,
