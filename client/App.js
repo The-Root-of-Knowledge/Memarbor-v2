@@ -21,34 +21,8 @@ class App extends Component {
 
     this.logInUser = this.logInUser.bind(this);
     this.createNewUser = this.createNewUser.bind(this);
+    this.logInWithGoogle = this.logInWithGoogle.bind(this);
   }
-
-  // checkCredentials(credentials) {
-  //   //Check if login credentials are a mininumum of 8 characters
-  //   let signUpResponse;
-  //   if (credentials[0].length < 8) {
-  //     signUpResponse = "Username must atleast be 8 characters long";
-  //   }
-  //   if (credentials[1].length < 8) {
-  //     signUpResponse = "Password must be 8 characters long";
-  //   }
-  //   if (credentials[0].length < 8 && credentials[1].length < 8) {
-  //     signUpResponse =
-  //       "Username and password must each be atleast be 8 characters long";
-  //   }
-
-  //   if (
-  //     signUpResponse === "Username must atleast be 8 characters long" ||
-  //     "Password must be 8 characters long" ||
-  //     "Username and password must each be atleast be 8 characters long"
-  //   ) {
-  //     this.setState({
-  //       ...this.state,
-  //       signUpResponse,
-  //     });
-  //     return;
-  //   }
-  // }
 
   createNewUser(credentials) {
     //Check if login credentials are a mininumum of 8 characters
@@ -136,6 +110,30 @@ class App extends Component {
       .catch((err) => console.log(err));
   }
 
+  logInWithGoogle() {
+    console.log("Function is connected");
+    fetch("/auth/google")
+      .then((res) => res.json())
+      .then((res) => {
+        // Update this.state.loggedIn and this.state.username based on response status
+        let loggedIn = this.state.loggedIn;
+        // let username = this.state.username;
+        let userId = this.state.userId;
+        if (res.userId) {
+          // username = credentials[0];
+          loggedIn = true;
+          userId = res.userId;
+        }
+        this.setState({
+          ...this.state,
+          // username,
+          loggedIn,
+          userId,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+
   render() {
     return (
       <Router>
@@ -160,6 +158,7 @@ class App extends Component {
               path="/login"
               render={(props) => (
                 <LogIn
+                  logInWithGoogle={this.logInWithGoogle}
                   logInUser={this.logInUser}
                   loggedIn={this.state.loggedIn}
                 />
