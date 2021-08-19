@@ -28,6 +28,8 @@ const useStyles = makeStyles({
 export default function FlashCard(props) {
   const classes = useStyles();
 
+  const pressEnterHandler = (e) => {if (e.key === 'Enter') props.checkAnswer();}
+
   return (
     <Card className={classes.flashcard}>
       <CardContent>
@@ -50,6 +52,7 @@ export default function FlashCard(props) {
         <TextField
           id="guess"
           variant="outlined"
+          onKeyDown={pressEnterHandler}
           style={{ display: props.currCard.answer ? "block" : "none" }}
         />
         <Button

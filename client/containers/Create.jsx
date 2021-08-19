@@ -90,7 +90,7 @@ class Create extends Component {
     })
     .then((dbdata) => dbdata.json())
     .then((jvsdata) => {
-        //console.log(jvsdata, 'jvsdata in newSetName')
+        // console.log(jvsdata, 'jvsdata in newSetName')
         returnedSetId = jvsdata
         this.state.currSetId = returnedSetId._id;
     })

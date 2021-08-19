@@ -20,6 +20,23 @@ cardController.getSet = (req, res, next) => {
     });
 };
 
+cardController.deleteSet = (req, res, next) => {
+  //_id comes from front end based on what set user clicked
+  const setId = [req.body._id];
+  //console.log(setId, "Should be 1");
+  const queryString = `DELETE FROM sets WHERE _id = $1 RETURNING *;`;
+  db.query(queryString, setId)
+    .then((data) => {
+      res.locals.set = data.rows;
+      //console.log(res.locals.set, "Should be the object we want");
+      return next();
+    })
+    .catch((err) => {
+      console.log(err);
+      return next(err);
+    });
+};
+
 cardController.createSet = (req, res, next) => {
   //user sends a name for the set
   console.log(req.body);
