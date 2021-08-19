@@ -87,11 +87,13 @@ class App extends Component {
                 <HomePage />
               )}/>
               <Route path='/practice' render={props => (
-                  <Practice loggedIn={this.state.loggedIn} />
+                <Practice loggedIn={this.state.loggedIn} />
               )}/>
-              <Route path='/create' component={Create}/>
+              <Route path='/create' render={props => (
+                <Create userId={this.state.userId} />
+              )}/>
               <Route path='/login' render={props => (
-                  <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
+                <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
               )}/>
               <Route path='/signup' render={props => (
                 <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
