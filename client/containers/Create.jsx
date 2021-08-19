@@ -84,7 +84,8 @@ class Create extends Component {
         method: 'POST',
         body: JSON.stringify({
           name: newSetName, 
-          private: this.state.isSetPrivate
+          private: this.state.isSetPrivate,
+          userId: this.props.userId
         })
     })
     .then((dbdata) => dbdata.json())

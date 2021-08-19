@@ -22,14 +22,14 @@ cardController.getSet = (req, res, next) => {
 
 cardController.createSet = (req, res, next) => {
   //user sends a name for the set
-  const setInfo = [req.body.name, req.body.private];
+  console.log(req.body);
+  const setInfo = [req.body.name, req.body.private, req.body.userId];
   //take name from request body and use that to create new set
-  const queryString = `INSERT INTO sets (setname, private) VALUES ($1, $2);`;
+  const queryString = `INSERT INTO sets (setname, private, user_id) VALUES ($1, $2, $3);`;
   //Will need to pass setname and private = 0 to db
   db.query(queryString, setInfo)
     .then((data) => {
       res.locals.newSetName = [req.body.name];
-      //console.log(res.locals.newSetName)
       return next();
     })
     .catch((err) => {

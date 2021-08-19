@@ -28,16 +28,16 @@ class App extends Component {
       method: "POST",
       body: JSON.stringify({username: credentials[0], password: credentials[1]}),
     })
-    // .then(res => res.json())
+    .then(res => res.json())
     .then(res => {
       // Update this.state.loggedIn and this.state.username based on response status
       let loggedIn = this.state.loggedIn;
       let username = this.state.username;
       let userId = this.state.userId;
-      if (res.status === 200) {
+      if (res.userId) {
         username = credentials[0];
         loggedIn = true;
-        // userId = res.body.userId;
+        userId = res.userId;
       }
       this.setState({
         ...this.state,
@@ -56,18 +56,16 @@ class App extends Component {
       method: "POST",
       body: JSON.stringify({username: credentials[0], password: credentials[1]}),
     })
-    // .then(res => res.json())
+    .then(res => res.json())
     .then(res => {
-
       // Update this.state.loggedIn and this.state.username based on response status
       let loggedIn = this.state.loggedIn;
       let username = this.state.username;
       let userId = this.state.userId;
-      if (res.status === 200) {
+      if (res.userId) {
         username = credentials[0];
         loggedIn = true;
-        // userId = res.body.userId;
-        console.log(res);
+        userId = res.userId;
       }
       this.setState({
         ...this.state,
@@ -89,11 +87,13 @@ class App extends Component {
                 <HomePage />
               )}/>
               <Route path='/practice' render={props => (
-                  <Practice loggedIn={this.state.loggedIn} />
+                <Practice loggedIn={this.state.loggedIn} />
               )}/>
-              <Route path='/create' component={Create}/>
+              <Route path='/create' render={props => (
+                <Create userId={this.state.userId} />
+              )}/>
               <Route path='/login' render={props => (
-                  <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
+                <LogIn logInUser={this.logInUser} loggedIn={this.state.loggedIn} />
               )}/>
               <Route path='/signup' render={props => (
                 <SignUp createNewUser={this.createNewUser} loggedIn={this.state.loggedIn} />
