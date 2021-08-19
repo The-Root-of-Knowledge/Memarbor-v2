@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const app = express();
+const passport = require('passport')
 
 //list of routers
 const cardRouters = require("./routes/cardRouters.js");
@@ -13,6 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/build", express.static(path.join(__dirname, "../build/")));
+
+app.use(passport.initialize())
+app.use(passport.session());
 
 //console.log("Before get slash");
 
